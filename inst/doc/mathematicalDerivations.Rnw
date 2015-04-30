@@ -1,0 +1,173 @@
+\documentclass{article}
+
+\usepackage{float}
+\date{}
+
+%\VignetteEngine{knitr::knitr}
+<<style, eval=TRUE, echo=FALSE, results="asis">>=
+BiocStyle::latex()
+@
+
+% \VignetteIndexEntry{Supplementary Methods - mathematical derivations}
+
+\begin{document}
+
+<<setup, include=FALSE>>=
+library(knitr)
+@
+
+\title{Supplementary Methods - mathematical derivations}
+\author{Joseph D. Barry, Erika Don\`a, Darren Gilmour, Wolfgang Huber}
+\maketitle
+\tableofcontents
+
+\section{Model definition}
+
+The fluorophore maturation kinetics was described as a one-step process. Each 
+fluorescence channel was modelled separately but due to tandem timer design 
+each channel shared the same constant protein production rate $p$ and constant 
+degradation rate $k$. The time-dependent rate equations used are therefore
+\begin{equation}
+    \begin{array}{lcl}
+        \dot{X_i^0}(t) & = & p-(k+m_i)X_i^0(t) \\
+        \dot{X_i}(t) & = & m_iX_i^0(t)-kX_i(t)
+    \end{array}
+\label{eq:ODE}
+\end{equation}
+\noindent
+where $X_i^0(t)$ and $X_i(t)$ are the molecular populations of the non-mature 
+and mature fluorophore populations respectively at time $t$ for the $i$th 
+fluorescence channel with $i\in\{1, 2\}$. We chose the convention that $i=1$ 
+is the fast-maturing fluorescence channel and $i=2$ is the slow-maturing 
+fluorescence channel.
+
+\section{Model solutions}
+
+The time-dependent solutions to eq. \ref{eq:ODE} with the boundary conditions 
+$X_i^0(0)=0$ and $X_i(0)=0$ were calculated to be
+\begin{equation}
+    \begin{array}{lcl}
+        X_i^0(t) & = & p(1-e^{-(k+m_i)t})/(k+m_i) \\
+        X_i(t) & = & pe^{-(k+m_i)t}(k-e^{m_it}(k+m_i-e^{kt}m_i))/(k(k+m_i))\ .
+    \end{array}
+\label{eq:ODEsolutionTime}    
+\end{equation}
+
+The corresponding steady state solutions to eq. \ref{eq:ODEsolutionTime} are
+\begin{equation}
+    \begin{array}{lcl}
+        \lim_{t\to\infty}X_i^0(t) & = & p/(k+m_i) \\
+        \lim_{t\to\infty}X_i(t) & = & pm_i/(k(k+m_i))\ .
+    \end{array}
+\label{eq:ODEsteadyState}
+\end{equation}
+
+\section{Timer ratio with FRET}
+
+Fluorescence intensity $I_i$ is proportional to the number of mature fluorescent 
+molecules $X_i$. If FRET occurs between channel $1$ and channel $2$ the
+fluorescence intensity of channel $1$ will be reduced by an amount proportional
+to the FRET efficiency $E$ and the proportion $b$ of channel 2 fluorophores 
+available as acceptors. In the time-dependent model this was described as
+\begin{equation}
+    \begin{array}{lcl}
+        I_1(t) & = & f_1X_1(t)(1-b(t)E) \\
+        I_2(t) & = & f_2X_2(t)
+    \end{array}
+\label{eq:fluorescenceIntensities}
+\end{equation}
+\noindent
+where the proportionality constant $f_i$ incorporates multiplicative effects 
+such as fluorophore brightness and quantum yield, and 
+$b(t)=X_2(t)/(X_2^0(t)+X_2(t))$. We did not consider FRET from channel $2$ to channel $1$ 
+since it is physiologically improbable to encounter such cases as slower-maturing 
+fluorophores tend to have longer wavelengths than faster-maturing fluorophores.
+
+The time-dependent timer ratio $R$ incorporating FRET was defined as
+\begin{equation}
+    R(t)=I_2(t)/I_1(t)=fX_2(t)/(X_1(t)(1-b(t)E))
+\end{equation}
+where $f=f_2/f_1$.
+
+In full the the timer ratio is therefore
+\begin{equation}
+    R(t)=f\frac{e^{(m_1-m_2)t}(k+m_1)(k-e^{m_2t}(k+m_2-e^{kt}m_2))}{(k-e^{m_1t}(k+m_1-e^{kt}m_1))(k+m_2)(1-E\frac{k-e^{-m_2t}k+m_2-e^{kt}m_2}{(1-e^{kt})(k+m_2)})}
+\end{equation}
+\noindent
+, which in steady state reduces to
+\begin{equation}
+    \lim_{t\to\infty}R(t)=f\frac{m_2(k+m_1)}{m_1(k+m_2-Em_2)}\ .
+\end{equation}
+
+\section{Time to reach steady state}
+
+The time to reach steady state for the ratio was determined from the kinetics of the 
+slower maturing fluorophore, FP2. Since FP2 is not affected by FRET from FP1 we 
+may calculate this either from the fluorescence intensity in eq.
+\ref{eq:fluorescenceIntensities} or the molecular population in eq. 
+\ref{eq:ODEsolutionTime}. Here we focus on the latter. We choose to define 
+the time to reach steady-state as the point of intersection chose the line tangent 
+to the point of inflection and the steady state value (see Fig. S4A) given by 
+eq. \ref{eq:ODEsteadyState}. The time coordinate $t^*$ at the point of inflection 
+was calculated to be
+\noindent
+\begin{equation}
+    t^*=(1/m_2)\log(1+m_2/k)\ .
+\end{equation}
+\noindent
+The slope $s$ of the tangent to the FP2 profile is given by
+\begin{equation}
+    s=pm_2(1+m_2/k)^{k/m_2}/(k+m_2)\ .
+\end{equation}
+Calculating the point of intersection between the tangent line and the steady 
+state value led to the following definition for the time to reach steady 
+state, $T_{ss}$.
+
+\begin{equation}
+    T_{ss}=1/k+1/(k+m_2)+\log(1+m_2/k)/m_2
+\end{equation}
+
+\section{Timer signal}
+
+The timer signal was defined between two protein 
+half-lives, $T_{1/2}^A$ and $T_{1/2}^B$ where $T_{1/2}^B>T_{1/2}^A$ . 
+We considered the log fold-change between the corresponding timer ratios $R^B=I_2^B/I_1^B$ and 
+$R^A=I_2^A/I_1^A$.
+
+To investigate the effect of background noise on our ability to detect differences 
+in timer signal we defined the following additive error model.
+
+\begin{equation}
+    S=\log_2\bigg(\frac{I_2^B+\epsilon_2^B}{I_1^B+\epsilon_1^B}\bigg/\frac{I_2^A+\epsilon_2^A}{I_1^A+\epsilon_1^A}\bigg)
+\end{equation}
+\noindent
+where $\epsilon_1^A,\epsilon_2^A,\epsilon_1^B,\epsilon_2^B\sim N(0,\sigma^2)$ are 
+independent. Computer simulations were used to obtain an estimate of the 
+population mean $\mu_S$ and standard deviation $\sigma_S$. From this we formed 
+the coefficient of variation term
+
+\begin{equation}
+    CV=\sigma_S/\mu_S\ .
+\label{eq:statistic}
+\end{equation}
+
+\section{Timer signal and FRET}
+
+To explain why an increase in FRET increases timer timer signal we considered 
+timer signal without additive noise and denoted
+timer signal without FRET ($E=0$) as $D_0$ and timer signal with positive
+FRET ($E>0$) as $D_E$. We calculated that
+
+\begin{equation}
+    D_E/D_0 = 1+\frac{1}{D_0}\log_2\bigg(\frac{1-b^AE}{1-b^BE}\bigg)
+\label{eq:timerSignalFRET}
+\end{equation}
+\noindent
+where $b^A$ and $b^B$ are the proportions of FP2 fluorophores available as 
+acceptors for the shorter-living and longer-living proteins, respectively. 
+Since the population of mature FP2 fluorophores is relatively more abundant for 
+the long-living protein, $b^B>b^A$, which implies that $1-b^BE<1-b^AE$. 
+Therefore $\log_2((1-b^AE)/(1-b^BE))$ is a positive quantity and  
+eq. \ref{eq:timerSignalFRET} is greater than one.
+
+\end{document}

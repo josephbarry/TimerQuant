@@ -1,0 +1,15 @@
+Package: TimerQuant
+Type: Package
+Title: Timer Quantification
+Version: 1.0.8
+Date: 2015-05-22
+Author: Joseph Barry
+Maintainer: Joseph Barry <joseph.barry@embl.de>
+Depends: shiny
+Suggests: BiocStyle, reshape2, knitr, shinyBS
+Imports: ggplot2, grid, gridExtra, deSolve, dplyr, locfit
+VignetteBuilder: knitr
+Description: Supplementary Data package for tandem timer methods paper by Barry et al. (2015) including TimerQuant shiny applications.
+License: Artistic-2.0
+LazyLoad: yes
+Packaged: 2015-04-30 14:53:11 UTC; barry

@@ -1,0 +1,1016 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     33726,       1007]
+NotebookOptionsPosition[     31260,        924]
+NotebookOutlinePosition[     31692,        941]
+CellTagsIndexPosition[     31649,        938]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Using tandem fluorescent protein timers in a developmental context: \
+calibration and dynamics\
+\>", "Title",
+ CellChangeTimes->{{3.6333498995454617`*^9, 3.633349938832994*^9}, {
+  3.6386129544730177`*^9, 3.638612956978422*^9}}],
+
+Cell[TextData[{
+ "Supplemental ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " notebook"
+}], "Subtitle",
+ CellChangeTimes->{{3.6333499653440104`*^9, 3.6333499784454947`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Joseph D. Barry, Erika Dona, Darren Gilmour and Wolfgang Huber\
+\>", "Author",
+ CellChangeTimes->{{3.633350058894783*^9, 3.633350060924584*^9}, {
+  3.633350094697225*^9, 3.6333501176992617`*^9}}],
+
+Cell["\<\
+EMBL Heidelberg, Meyerhofstrasse 1, 69117 Heidelberg, Germany\
+\>", "Institution",
+ CellChangeTimes->{{3.633350129718149*^9, 3.633350140370438*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Time-dependent solutions for fluorescence channels\
+\>", "Section",
+ CellChangeTimes->{{3.633350341309647*^9, 3.63335039584986*^9}, {
+  3.633425739474769*^9, 3.63342574229673*^9}, {3.6386129628632193`*^9, 
+  3.638612982965939*^9}}],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.63335041863354*^9, 3.6333504211038303`*^9}}],
+
+Cell[TextData[{
+ "We start by solving for time-dependent solutions of the one-step \
+fluorophore maturation model published by Khmelinskii and Keller ",
+ StyleBox["et al.",
+  FontSlant->"Italic"],
+ " (2012). "
+}], "Text",
+ CellChangeTimes->{{3.633350692388462*^9, 3.633350694760133*^9}, {
+  3.6333507272146263`*^9, 3.633350727926098*^9}, {3.6333508306896753`*^9, 
+  3.633350891808415*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FP", "=", 
+  RowBox[{
+   RowBox[{"FullSimplify", "[", "\n", "    ", 
+    RowBox[{"DSolve", "[", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", "        ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"X0", "'"}], "[", "t", "]"}], "\[Equal]", 
+         RowBox[{"p", "-", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"k", "+", "m"}], ")"}], 
+           RowBox[{"X0", "[", "t", "]"}]}]}]}], ",", "\[IndentingNewLine]", 
+        "        ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"X1", "'"}], "[", "t", "]"}], "\[Equal]", " ", 
+         RowBox[{
+          RowBox[{"m", " ", 
+           RowBox[{"X0", "[", "t", "]"}]}], " ", "-", " ", 
+          RowBox[{"k", " ", 
+           RowBox[{"X1", "[", "t", "]"}]}]}]}], ",", "\[IndentingNewLine]", 
+        "        ", 
+        RowBox[{
+         RowBox[{"X0", "[", "0", "]"}], "\[Equal]", "0"}], ",", " ", 
+        RowBox[{
+         RowBox[{"X1", "[", "0", "]"}], "==", "0"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", "    ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"X0", "[", "t", "]"}], ",", 
+        RowBox[{"X1", "[", "t", "]"}]}], "}"}], ",", "t"}], "]"}], "\n", 
+    "]"}], "[", 
+   RowBox[{"[", "1", "]"}], "]"}]}]], "Code",
+ CellChangeTimes->{{3.633350410546649*^9, 3.633350431099804*^9}, {
+  3.6333504732486143`*^9, 3.63335048491326*^9}, {3.633350533344668*^9, 
+  3.633350670112321*^9}, {3.633350744616227*^9, 3.633350793370574*^9}, {
+  3.6333513401661377`*^9, 3.6333513409263906`*^9}, {3.636174578975895*^9, 
+  3.636174580075719*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"X0", "[", "t", "]"}], "\[Rule]", 
+    FractionBox[
+     RowBox[{"p", "-", 
+      RowBox[{
+       SuperscriptBox["\[ExponentialE]", 
+        RowBox[{
+         RowBox[{"-", 
+          RowBox[{"(", 
+           RowBox[{"k", "+", "m"}], ")"}]}], " ", "t"}]], " ", "p"}]}], 
+     RowBox[{"k", "+", "m"}]]}], ",", 
+   RowBox[{
+    RowBox[{"X1", "[", "t", "]"}], "\[Rule]", 
+    FractionBox[
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"(", 
+          RowBox[{"k", "+", "m"}], ")"}]}], " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "-", 
+        RowBox[{
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"m", " ", "t"}]], " ", 
+         RowBox[{"(", 
+          RowBox[{"k", "+", "m", "-", 
+           RowBox[{
+            SuperscriptBox["\[ExponentialE]", 
+             RowBox[{"k", " ", "t"}]], " ", "m"}]}], ")"}]}]}], ")"}], " ", 
+      "p"}], 
+     RowBox[{"k", " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m"}], ")"}]}]]}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.633356729580803*^9, {3.6334243931065407`*^9, 3.6334243939192467`*^9}, 
+   3.633431023239314*^9, 3.636174584573182*^9, 3.636178212157392*^9, 
+   3.636178522648239*^9, 3.638612195342819*^9, 3.63861299217078*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "Here ",
+ StyleBox["X0",
+  FontSlant->"Italic"],
+ " is the molecular population of the immature (dark) fluorophores and ",
+ StyleBox["X1",
+  FontSlant->"Italic"],
+ " the population of the mature (fluorescent) fluorophores. Production rate \
+",
+ StyleBox["p",
+  FontSlant->"Italic"],
+ ", degradation rate ",
+ StyleBox["k",
+  FontSlant->"Italic"],
+ ", and fluorophore maturation rate ",
+ StyleBox["m",
+  FontSlant->"Italic"],
+ " are constant. Both dark and fluorescent groups start with a population of \
+zero molecules at time point zero."
+}], "Text",
+ CellChangeTimes->{{3.6333509175441628`*^9, 3.63335107109132*^9}}],
+
+Cell["\<\
+We describe both the fast maturing FP1 and slow maturing FP2 dynamics with \
+this model.\
+\>", "Text",
+ CellChangeTimes->{{3.6333511763469563`*^9, 3.633351228054281*^9}, {
+  3.633351500734167*^9, 3.633351522993443*^9}, {3.633351569875238*^9, 
+  3.6333515711282663`*^9}, {3.633351679683296*^9, 3.633351680338881*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"FP1dark", "[", 
+   RowBox[{"p_", ",", "k_", ",", "m_", ",", "t_"}], "]"}], "=", " ", 
+  RowBox[{
+   RowBox[{"FP", "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "[", 
+   RowBox[{"[", "2", "]"}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"FP1", "[", 
+   RowBox[{"p_", ",", "k_", ",", "m_", ",", "t_"}], "]"}], "=", 
+  RowBox[{
+   RowBox[{"FP", "[", 
+    RowBox[{"[", "2", "]"}], "]"}], "[", 
+   RowBox[{"[", "2", "]"}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"FP2dark", "[", 
+   RowBox[{"p_", ",", "k_", ",", "m_", ",", "t_"}], "]"}], "=", 
+  RowBox[{
+   RowBox[{"FP", "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "[", 
+   RowBox[{"[", "2", "]"}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"FP2", "[", 
+   RowBox[{"p_", ",", "k_", ",", "m_", ",", "t_"}], "]"}], "=", 
+  RowBox[{
+   RowBox[{"FP", "[", 
+    RowBox[{"[", "2", "]"}], "]"}], "[", 
+   RowBox[{"[", "2", "]"}], "]"}]}]}], "Code",
+ CellChangeTimes->{{3.633351238942832*^9, 3.633351323090948*^9}, {
+  3.633351362276095*^9, 3.633351396735239*^9}, {3.633351526884253*^9, 
+  3.6333515618565207`*^9}, {3.6333516732125273`*^9, 3.633351697251644*^9}, {
+  3.633431101695043*^9, 3.633431104874024*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"p", "-", 
+   RowBox[{
+    SuperscriptBox["\[ExponentialE]", 
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"(", 
+        RowBox[{"k", "+", "m"}], ")"}]}], " ", "t"}]], " ", "p"}]}], 
+  RowBox[{"k", "+", "m"}]]], "Output",
+ CellChangeTimes->{3.6334311082110777`*^9, 3.636174586468557*^9, 
+  3.636178214489772*^9, 3.6361785240507393`*^9, 3.6386122066678467`*^9, 
+  3.63861299446379*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m"}], ")"}]}], " ", "t"}]], " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "-", 
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"m", " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m", "-", 
+        RowBox[{
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"k", " ", "t"}]], " ", "m"}]}], ")"}]}]}], ")"}], " ", 
+   "p"}], 
+  RowBox[{"k", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m"}], ")"}]}]]], "Output",
+ CellChangeTimes->{3.6334311082110777`*^9, 3.636174586468557*^9, 
+  3.636178214489772*^9, 3.6361785240507393`*^9, 3.6386122066678467`*^9, 
+  3.6386129944652452`*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"p", "-", 
+   RowBox[{
+    SuperscriptBox["\[ExponentialE]", 
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"(", 
+        RowBox[{"k", "+", "m"}], ")"}]}], " ", "t"}]], " ", "p"}]}], 
+  RowBox[{"k", "+", "m"}]]], "Output",
+ CellChangeTimes->{3.6334311082110777`*^9, 3.636174586468557*^9, 
+  3.636178214489772*^9, 3.6361785240507393`*^9, 3.6386122066678467`*^9, 
+  3.638612994466226*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m"}], ")"}]}], " ", "t"}]], " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "-", 
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"m", " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m", "-", 
+        RowBox[{
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"k", " ", "t"}]], " ", "m"}]}], ")"}]}]}], ")"}], " ", 
+   "p"}], 
+  RowBox[{"k", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m"}], ")"}]}]]], "Output",
+ CellChangeTimes->{3.6334311082110777`*^9, 3.636174586468557*^9, 
+  3.636178214489772*^9, 3.6361785240507393`*^9, 3.6386122066678467`*^9, 
+  3.638612994467289*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Time-dependent solutions for ratio including FRET", "Section",
+ CellChangeTimes->{{3.633425773031488*^9, 3.6334257766622133`*^9}, {
+  3.633426051878068*^9, 3.633426061240305*^9}, {3.633426511936399*^9, 
+  3.633426514439293*^9}}],
+
+Cell[TextData[{
+ "Next we form the FP2/FP1 fluorescence intensity ratio. A proportionality \
+constant ",
+ StyleBox["f",
+  FontSlant->"Italic"],
+ " is included to relate the fluorescence intensity to the number of \
+molecules for each fluorophore channel. FRET from FP1 to FP2 is also modelled \
+in a time dependent way by measuring the proportion ",
+ StyleBox["B",
+  FontSlant->"Italic"],
+ " of FP2 molecules that are mature and available as FRET acceptors. The \
+coefficient of FRET is denoted as ",
+ "E0",
+ "."
+}], "Text",
+ CellChangeTimes->{{3.633352137834333*^9, 3.6333522876984253`*^9}, {
+   3.633352367551867*^9, 3.6333523819344797`*^9}, 3.63343191692528*^9, 
+   3.636178152435054*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"B", "[", 
+   RowBox[{"p_", ",", "k_", ",", "m_", ",", "t_"}], "]"}], "=", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{
+    RowBox[{"FP2", "[", 
+     RowBox[{"p", ",", "k", ",", "m", ",", "t"}], "]"}], "/", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"FP2dark", "[", 
+       RowBox[{"p", ",", "k", ",", "m", ",", "t"}], "]"}], "+", 
+      RowBox[{"FP2", "[", 
+       RowBox[{"p", ",", "k", ",", "m", ",", "t"}], "]"}]}], ")"}]}], 
+   "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"FP2intensity", "[", 
+   RowBox[{"p_", ",", "k_", ",", "m_", ",", "t_", ",", "f_"}], "]"}], "=", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{"f", " ", 
+    RowBox[{"FP2", "[", 
+     RowBox[{"p", ",", "k", ",", "m", ",", "t"}], "]"}]}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"FP1intensity", "[", 
+   RowBox[{
+   "p_", ",", "k_", ",", "m1_", ",", "m2_", ",", "t_", ",", "f_", ",", 
+    "E0_"}], "]"}], "=", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{"f", " ", 
+    RowBox[{"FP1", "[", 
+     RowBox[{"p", ",", "k", ",", "m1", ",", "t"}], "]"}], 
+    RowBox[{"(", 
+     RowBox[{"1", "-", 
+      RowBox[{
+       RowBox[{"B", "[", 
+        RowBox[{"p", ",", "k", ",", "m2", ",", "t"}], "]"}], "E0"}]}], 
+     ")"}]}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"R", "[", 
+   RowBox[{
+   "p_", ",", "k_", ",", "m1_", ",", "m2_", ",", "t_", ",", "f1_", ",", "f2_",
+     ",", "E0_"}], "]"}], "=", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{
+    RowBox[{"FP2intensity", "[", 
+     RowBox[{"p", ",", "k", ",", "m2", ",", "t", ",", "f2"}], "]"}], "/", 
+    RowBox[{"FP1intensity", "[", 
+     RowBox[{
+     "p", ",", "k", ",", "m1", ",", "m2", ",", "t", ",", "f1", ",", "E0"}], 
+     "]"}]}], "]"}]}]}], "Code",
+ CellChangeTimes->{{3.63335230669913*^9, 3.633352320409321*^9}, {
+   3.633352396366604*^9, 3.633352649326461*^9}, {3.6333526904478693`*^9, 
+   3.633352745214683*^9}, {3.63335277757344*^9, 3.6333528499985533`*^9}, {
+   3.633352915984119*^9, 3.633352954457917*^9}, {3.633354803376604*^9, 
+   3.6333549173785887`*^9}, 3.633354951557981*^9, {3.633355414674376*^9, 
+   3.633355661371138*^9}, {3.633355692507594*^9, 3.633355721836966*^9}, {
+   3.6334243256362133`*^9, 3.633424380402388*^9}, {3.6334244288692503`*^9, 
+   3.6334244427486267`*^9}, {3.636178161201686*^9, 3.63617816987814*^9}}],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox[
+   RowBox[{"k", "-", 
+    RowBox[{
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{
+       RowBox[{"-", "m"}], " ", "t"}]], " ", "k"}], "+", "m", "-", 
+    RowBox[{
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"k", " ", "t"}]], " ", "m"}]}], 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", 
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"k", " ", "t"}]]}], ")"}], " ", 
+    RowBox[{"(", 
+     RowBox[{"k", "+", "m"}], ")"}]}]]}]], "Output",
+ CellChangeTimes->{
+  3.633352448247034*^9, 3.6333524878327303`*^9, {3.633352551706706*^9, 
+   3.6333525619773006`*^9}, 3.633352820036215*^9, 3.633352851545082*^9, {
+   3.633352919419898*^9, 3.633352943240245*^9}, {3.633355288071539*^9, 
+   3.633355311127446*^9}, {3.633355648998269*^9, 3.633355666340045*^9}, {
+   3.633355701196672*^9, 3.633355723186151*^9}, 3.633424399370738*^9, 
+   3.633424445679172*^9, 3.633431028897065*^9, 3.636174591804689*^9, 
+   3.636178217222372*^9, 3.636178526983766*^9, 3.638612218222649*^9, 
+   3.638612997044202*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m"}], ")"}]}], " ", "t"}]], " ", "f", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "-", 
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"m", " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m", "-", 
+        RowBox[{
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"k", " ", "t"}]], " ", "m"}]}], ")"}]}]}], ")"}], " ", 
+   "p"}], 
+  RowBox[{"k", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m"}], ")"}]}]]], "Output",
+ CellChangeTimes->{
+  3.633352448247034*^9, 3.6333524878327303`*^9, {3.633352551706706*^9, 
+   3.6333525619773006`*^9}, 3.633352820036215*^9, 3.633352851545082*^9, {
+   3.633352919419898*^9, 3.633352943240245*^9}, {3.633355288071539*^9, 
+   3.633355311127446*^9}, {3.633355648998269*^9, 3.633355666340045*^9}, {
+   3.633355701196672*^9, 3.633355723186151*^9}, 3.633424399370738*^9, 
+   3.633424445679172*^9, 3.633431028897065*^9, 3.636174591804689*^9, 
+   3.636178217222372*^9, 3.636178526983766*^9, 3.638612218222649*^9, 
+   3.638612997133222*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m1"}], ")"}]}], " ", "t"}]], " ", "f", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "-", 
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"m1", " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m1", "-", 
+        RowBox[{
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"k", " ", "t"}]], " ", "m1"}]}], ")"}]}]}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{"1", "+", 
+     FractionBox[
+      RowBox[{"E0", " ", 
+       RowBox[{"(", 
+        RowBox[{"k", "-", 
+         RowBox[{
+          SuperscriptBox["\[ExponentialE]", 
+           RowBox[{
+            RowBox[{"-", "m2"}], " ", "t"}]], " ", "k"}], "+", "m2", "-", 
+         RowBox[{
+          SuperscriptBox["\[ExponentialE]", 
+           RowBox[{"k", " ", "t"}]], " ", "m2"}]}], ")"}]}], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"k", " ", "t"}]]}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{"k", "+", "m2"}], ")"}]}]]}], ")"}], " ", "p"}], 
+  RowBox[{"k", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m1"}], ")"}]}]]], "Output",
+ CellChangeTimes->{
+  3.633352448247034*^9, 3.6333524878327303`*^9, {3.633352551706706*^9, 
+   3.6333525619773006`*^9}, 3.633352820036215*^9, 3.633352851545082*^9, {
+   3.633352919419898*^9, 3.633352943240245*^9}, {3.633355288071539*^9, 
+   3.633355311127446*^9}, {3.633355648998269*^9, 3.633355666340045*^9}, {
+   3.633355701196672*^9, 3.633355723186151*^9}, 3.633424399370738*^9, 
+   3.633424445679172*^9, 3.633431028897065*^9, 3.636174591804689*^9, 
+   3.636178217222372*^9, 3.636178526983766*^9, 3.638612218222649*^9, 
+   3.63861299836609*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{"m1", " ", "t"}]], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"k", " ", "t"}]]}], ")"}], " ", "f2", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m1"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "-", 
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"m2", " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m2", "-", 
+        RowBox[{
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"k", " ", "t"}]], " ", "m2"}]}], ")"}]}]}], ")"}]}], 
+  RowBox[{"f1", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "-", 
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"m1", " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m1", "-", 
+        RowBox[{
+         SuperscriptBox["\[ExponentialE]", 
+          RowBox[{"k", " ", "t"}]], " ", "m1"}]}], ")"}]}]}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "E0"}], " ", "k"}], "+", 
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{"m2", " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "1"}], "+", "E0"}], ")"}], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m2"}], ")"}]}], "+", 
+     RowBox[{
+      SuperscriptBox["\[ExponentialE]", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"k", "+", "m2"}], ")"}], " ", "t"}]], " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m2", "-", 
+        RowBox[{"E0", " ", "m2"}]}], ")"}]}]}], ")"}]}]]], "Output",
+ CellChangeTimes->{
+  3.633352448247034*^9, 3.6333524878327303`*^9, {3.633352551706706*^9, 
+   3.6333525619773006`*^9}, 3.633352820036215*^9, 3.633352851545082*^9, {
+   3.633352919419898*^9, 3.633352943240245*^9}, {3.633355288071539*^9, 
+   3.633355311127446*^9}, {3.633355648998269*^9, 3.633355666340045*^9}, {
+   3.633355701196672*^9, 3.633355723186151*^9}, 3.633424399370738*^9, 
+   3.633424445679172*^9, 3.633431028897065*^9, 3.636174591804689*^9, 
+   3.636178217222372*^9, 3.636178526983766*^9, 3.638612218222649*^9, 
+   3.6386129989583073`*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Steady state solutions including FRET", "Section",
+ FontSlant->"Plain"]], "Title",
+ CellChangeTimes->{{3.638612550520946*^9, 3.638612573350958*^9}}],
+
+Cell["\<\
+Next we compute the steady state solutions for time tending to infinity.\
+\>", "Text",
+ CellChangeTimes->{{3.638612344337603*^9, 3.638612351200206*^9}, {
+  3.6386125785424337`*^9, 3.638612592653163*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"FP2ss", "=", 
+  RowBox[{"Limit", "[", 
+   RowBox[{
+    RowBox[{"FP2intensity", "[", 
+     RowBox[{"p", ",", "k", ",", "m2", ",", "t", ",", "f2"}], "]"}], ",", 
+    RowBox[{"t", "\[Rule]", "Infinity"}], ",", 
+    RowBox[{"Assumptions", "\[RuleDelayed]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"p", ">", "0"}], ",", 
+       RowBox[{"k", ">", "0"}], ",", 
+       RowBox[{"m2", ">", "0"}], ",", 
+       RowBox[{"f2", ">", "0"}]}], "}"}]}]}], "]"}]}], "\n", 
+ RowBox[{"Limit", "[", 
+  RowBox[{
+   RowBox[{"FP1intensity", "[", 
+    RowBox[{
+    "p", ",", "k", ",", "m1", ",", "m2", ",", "t", ",", "f1", ",", "E0"}], 
+    "]"}], ",", 
+   RowBox[{"t", "\[Rule]", "Infinity"}], ",", 
+   RowBox[{"Assumptions", "\[RuleDelayed]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"p", ">", "0"}], ",", 
+      RowBox[{"k", ">", "0"}], ",", 
+      RowBox[{"m1", ">", "0"}], ",", 
+      RowBox[{"m2", ">", "0"}], ",", 
+      RowBox[{"f1", ">", "0"}], ",", 
+      RowBox[{"E0", ">", "0"}]}], "}"}]}]}], "]"}], "\n", 
+ RowBox[{"Limit", "[", 
+  RowBox[{
+   RowBox[{"R", "[", 
+    RowBox[{
+    "p", ",", "k", ",", "m1", ",", "m2", ",", "t", ",", "f1", ",", "f2", ",", 
+     "E0"}], "]"}], ",", 
+   RowBox[{"t", "\[Rule]", "Infinity"}], ",", 
+   RowBox[{"Assumptions", "\[RuleDelayed]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"p", ">", "0"}], ",", 
+      RowBox[{"k", ">", "0"}], ",", 
+      RowBox[{"m1", ">", "0"}], ",", 
+      RowBox[{"m2", ">", "0"}], ",", 
+      RowBox[{"f1", ">", "0"}], ",", 
+      RowBox[{"f2", ">", "0"}], ",", 
+      RowBox[{"E0", ">", "0"}]}], "}"}]}]}], "]"}]}], "Code",
+ CellChangeTimes->{{3.638612597357092*^9, 3.6386128272559433`*^9}, {
+  3.63861288584702*^9, 3.6386128922797422`*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"f2", " ", "m2", " ", "p"}], 
+  RowBox[{"k", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m2"}], ")"}]}]]], "Output",
+ CellChangeTimes->{
+  3.638612657660819*^9, 3.6386127197205553`*^9, {3.6386127751270638`*^9, 
+   3.63861282805443*^9}, {3.6386128885017443`*^9, 3.638612893193392*^9}, 
+   3.638613003283688*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"f1", " ", "m1", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m2", "-", 
+     RowBox[{"E0", " ", "m2"}]}], ")"}], " ", "p"}], 
+  RowBox[{"k", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m1"}], ")"}], " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m2"}], ")"}]}]]], "Output",
+ CellChangeTimes->{
+  3.638612657660819*^9, 3.6386127197205553`*^9, {3.6386127751270638`*^9, 
+   3.63861282805443*^9}, {3.6386128885017443`*^9, 3.638612893193392*^9}, 
+   3.638613003284855*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"f2", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m1"}], ")"}], " ", "m2"}], 
+  RowBox[{"f1", " ", "m1", " ", 
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m2", "-", 
+     RowBox[{"E0", " ", "m2"}]}], ")"}]}]]], "Output",
+ CellChangeTimes->{
+  3.638612657660819*^9, 3.6386127197205553`*^9, {3.6386127751270638`*^9, 
+   3.63861282805443*^9}, {3.6386128885017443`*^9, 3.638612893193392*^9}, 
+   3.638613003337657*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Time to reach steady state", "Section",
+ CellChangeTimes->{{3.633426011873661*^9, 3.633426026247786*^9}}],
+
+Cell[BoxData[""], "Text",
+ CellChangeTimes->{{3.6334254048545322`*^9, 3.63342540682062*^9}}],
+
+Cell["\<\
+We wish to calculate an estimate for the time taken to reach steady state for \
+the slower maturing FP2, as described in the main text. First we compute the \
+tangent to the point of inflection where the second derivative is zero.\
+\>", "Text",
+ CellChangeTimes->{{3.63342871942727*^9, 3.6334287582598057`*^9}, {
+   3.6334288601948757`*^9, 3.633428881551895*^9}, 3.6334312196867332`*^9, {
+   3.6334320482163897`*^9, 3.6334320518548937`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"FP2deriv1", "[", "t_", "]"}], "=", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{
+    SubscriptBox["\[PartialD]", "t"], 
+    RowBox[{"FP2intensity", "[", 
+     RowBox[{"p", ",", "k", ",", "m2", ",", "t", ",", "f2"}], "]"}]}], 
+   "]"}]}], "\n", 
+ RowBox[{"FP2deriv2", "=", 
+  RowBox[{
+   SubscriptBox["\[PartialD]", "t"], 
+   RowBox[{"FP2deriv1", "[", "t", "]"}]}]}], "\n", 
+ RowBox[{"tStar", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"Solve", "[", 
+      RowBox[{
+       RowBox[{"FP2deriv2", "\[Equal]", "0"}], ",", "t"}], "]"}], "[", 
+     RowBox[{"[", "1", "]"}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "[", 
+   RowBox[{"[", "2", "]"}], "]"}]}], "\n", 
+ RowBox[{"slopeAtInflection", "=", 
+  RowBox[{"FP2deriv1", "[", "tStar", "]"}]}]}], "Code",
+ CellChangeTimes->{{3.6334285945418777`*^9, 3.633428620256959*^9}, {
+  3.6334286607221317`*^9, 3.633428703214333*^9}, {3.63342876959207*^9, 
+  3.6334288163208113`*^9}, {3.633428898919023*^9, 3.6334289414628277`*^9}, {
+  3.633428996432863*^9, 3.633429023418208*^9}, {3.633429075166597*^9, 
+  3.63342910527061*^9}, {3.6334297702928133`*^9, 3.6334297988488493`*^9}, {
+  3.633430075343362*^9, 3.6334302120449*^9}, {3.633430343876164*^9, 
+  3.633430363197625*^9}, {3.633430449865415*^9, 3.633430461906583*^9}, {
+  3.6334306611030293`*^9, 3.633430837330925*^9}, {3.633430989741206*^9, 
+  3.633430997388987*^9}, {3.633431058692596*^9, 3.6334310589201727`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  SuperscriptBox["\[ExponentialE]", 
+   RowBox[{
+    RowBox[{"-", 
+     RowBox[{"(", 
+      RowBox[{"k", "+", "m2"}], ")"}]}], " ", "t"}]], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"-", "1"}], "+", 
+    SuperscriptBox["\[ExponentialE]", 
+     RowBox[{"m2", " ", "t"}]]}], ")"}], " ", "f2", " ", "p"}]], "Output",
+ CellChangeTimes->{3.633430837601905*^9, 3.6334310478282433`*^9, 
+  3.6386122262198553`*^9, 3.63861283976132*^9, 3.638613008300848*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m2"}], ")"}]}], " ", "t"}]], " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "1"}], "+", 
+     SuperscriptBox["\[ExponentialE]", 
+      RowBox[{"m2", " ", "t"}]]}], ")"}], " ", "f2", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"-", "k"}], "-", "m2"}], ")"}], " ", "p"}], "+", 
+  RowBox[{
+   SuperscriptBox["\[ExponentialE]", 
+    RowBox[{
+     RowBox[{"m2", " ", "t"}], "-", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m2"}], ")"}], " ", "t"}]}]], " ", "f2", " ", "m2", 
+   " ", "p"}]}]], "Output",
+ CellChangeTimes->{3.633430837601905*^9, 3.6334310478282433`*^9, 
+  3.6386122262198553`*^9, 3.63861283976132*^9, 3.638613008302348*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Solve", "::", "ifun"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Inverse functions are being used by \
+\[NoBreak]\\!\\(Solve\\)\[NoBreak], so some solutions may not be found; use \
+Reduce for complete solution information. \\!\\(\\*ButtonBox[\\\"\
+\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/Solve/ifun\\\", ButtonNote -> \
+\\\"Solve::ifun\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.6334308376393213`*^9, 3.633431047925852*^9, 
+  3.638612226353096*^9, 3.638612839830916*^9, 3.638613008362907*^9}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"Log", "[", 
+   FractionBox[
+    RowBox[{"k", "+", "m2"}], "k"], "]"}], "m2"]], "Output",
+ CellChangeTimes->{3.633430837601905*^9, 3.6334310478282433`*^9, 
+  3.6386122262198553`*^9, 3.63861283976132*^9, 3.638613008363806*^9}],
+
+Cell[BoxData[
+ RowBox[{"f2", " ", 
+  SuperscriptBox[
+   RowBox[{"(", 
+    FractionBox[
+     RowBox[{"k", "+", "m2"}], "k"], ")"}], 
+   RowBox[{"-", 
+    FractionBox[
+     RowBox[{"k", "+", "m2"}], "m2"]}]], " ", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"-", "1"}], "+", 
+    FractionBox[
+     RowBox[{"k", "+", "m2"}], "k"]}], ")"}], " ", "p"}]], "Output",
+ CellChangeTimes->{3.633430837601905*^9, 3.6334310478282433`*^9, 
+  3.6386122262198553`*^9, 3.63861283976132*^9, 3.638613008364758*^9}]
+}, Open  ]],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.633430071296351*^9, 3.633430072246476*^9}}],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.633430027836995*^9, 3.633430029034308*^9}}],
+
+Cell["\<\
+Next calculate the offset term (\[OpenCurlyDoubleQuote]c\
+\[CloseCurlyDoubleQuote] in y=mx+c) at the point of inflection and then solve \
+for point of intersection with steady state ratio.\
+\>", "Text",
+ CellChangeTimes->{{3.633429191545711*^9, 3.633429195162335*^9}, {
+  3.6334293272017527`*^9, 3.633429340199213*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"offset", "=", 
+  RowBox[{"FullSimplify", "[", 
+   RowBox[{
+    RowBox[{"FP2intensity", "[", 
+     RowBox[{"p", ",", "k", ",", "m2", ",", "tStar", ",", "f2"}], "]"}], "-", 
+    
+    RowBox[{"slopeAtInflection", "*", "tStar"}]}], "]"}]}], "\n", 
+ RowBox[{"Tss", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"FullSimplify", "[", 
+      RowBox[{"Solve", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{"slopeAtInflection", "*", "t"}], "+", "offset"}], 
+         "\[Equal]", "FP2ss"}], ",", "t"}], "]"}], "]"}], "[", 
+     RowBox[{"[", "1", "]"}], "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "[", 
+   RowBox[{"[", "2", "]"}], "]"}]}]}], "Code",
+ CellChangeTimes->{{3.633429206916004*^9, 3.633429319346691*^9}, {
+  3.633429385371696*^9, 3.633429557985066*^9}, {3.633429679621518*^9, 
+  3.633429680582466*^9}, {3.6334309421341133`*^9, 3.6334309817418633`*^9}}],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{"f2", " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     FractionBox[
+      RowBox[{"k", "+", "m2"}], "k"], ")"}], 
+    RowBox[{"1", "-", 
+     FractionBox["k", "m2"]}]], " ", "p", " ", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"m2", " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m2"}], ")"}], " ", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        FractionBox[
+         RowBox[{"k", "+", "m2"}], "k"], ")"}], 
+       RowBox[{"k", "/", "m2"}]]}], "-", 
+     RowBox[{"m2", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"2", " ", "k"}], "+", "m2"}], ")"}]}], "-", 
+     RowBox[{"k", " ", 
+      RowBox[{"(", 
+       RowBox[{"k", "+", "m2"}], ")"}], " ", 
+      RowBox[{"Log", "[", 
+       FractionBox[
+        RowBox[{"k", "+", "m2"}], "k"], "]"}]}]}], ")"}]}], 
+  SuperscriptBox[
+   RowBox[{"(", 
+    RowBox[{"k", "+", "m2"}], ")"}], "3"]]], "Output",
+ CellChangeTimes->{{3.633429278228341*^9, 3.633429296273987*^9}, {
+   3.633429524246216*^9, 3.633429538787874*^9}, 3.63342968234479*^9, 
+   3.6334298048160753`*^9, 3.6334308536438923`*^9, {3.633430944597131*^9, 
+   3.6334309826785088`*^9}, 3.633431054001997*^9, 3.63861222964248*^9, 
+   3.638612842302643*^9, 3.638612896046384*^9, 3.638613011001749*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  FractionBox["1", "k"], "+", 
+  FractionBox["1", 
+   RowBox[{"k", "+", "m2"}]], "+", 
+  FractionBox[
+   RowBox[{"Log", "[", 
+    FractionBox[
+     RowBox[{"k", "+", "m2"}], "k"], "]"}], "m2"]}]], "Output",
+ CellChangeTimes->{{3.633429278228341*^9, 3.633429296273987*^9}, {
+   3.633429524246216*^9, 3.633429538787874*^9}, 3.63342968234479*^9, 
+   3.6334298048160753`*^9, 3.6334308536438923`*^9, {3.633430944597131*^9, 
+   3.6334309826785088`*^9}, 3.633431054001997*^9, 3.63861222964248*^9, 
+   3.638612842302643*^9, 3.638612896046384*^9, 3.638613011046628*^9}]
+}, Open  ]],
+
+Cell[TextData[{
+ "The time to reach steady state, ",
+ StyleBox["Tss",
+  FontSlant->"Italic"],
+ ", is a function of FP2 maturation time and protein half-life."
+}], "Text",
+ CellChangeTimes->{{3.633431275882904*^9, 3.633431304046872*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1920, 1152},
+WindowMargins->{{1280, Automatic}, {Automatic, 0}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 20, \
+2012)",
+StyleDefinitions->FrontEnd`FileName[{"Article"}, "JournalArticle.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 238, 5, 72, "Title"],
+Cell[820, 29, 181, 6, 26, "Subtitle"],
+Cell[CellGroupData[{
+Cell[1026, 39, 205, 4, 41, "Author"],
+Cell[1234, 45, 158, 3, 12, "Institution"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1429, 53, 241, 5, 47, "Section"],
+Cell[1673, 60, 83, 1, 20, "Text"],
+Cell[1759, 63, 389, 9, 20, "Text"],
+Cell[CellGroupData[{
+Cell[2173, 76, 1592, 41, 143, "Code"],
+Cell[3768, 119, 1338, 40, 53, "Output"]
+}, Open  ]],
+Cell[5121, 162, 634, 20, 20, "Text"],
+Cell[5758, 184, 326, 6, 20, "Text"],
+Cell[CellGroupData[{
+Cell[6109, 194, 1165, 32, 98, "Code"],
+Cell[7277, 228, 426, 12, 49, "Output"],
+Cell[7706, 242, 778, 24, 53, "Output"],
+Cell[8487, 268, 427, 12, 49, "Output"],
+Cell[8917, 282, 776, 24, 53, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9742, 312, 234, 3, 47, "Section"],
+Cell[9979, 317, 691, 17, 35, "Text"],
+Cell[CellGroupData[{
+Cell[10695, 338, 2284, 57, 98, "Code"],
+Cell[12982, 397, 1086, 27, 55, "Output"],
+Cell[14071, 426, 1171, 30, 53, "Output"],
+Cell[15245, 458, 1849, 50, 71, "Output"],
+Cell[17097, 510, 2180, 61, 57, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19338, 578, 172, 2, 60, "Title"],
+Cell[19513, 582, 213, 4, 20, "Text"],
+Cell[CellGroupData[{
+Cell[19751, 590, 1739, 48, 82, "Code"],
+Cell[21493, 640, 350, 9, 48, "Output"],
+Cell[21846, 651, 508, 14, 48, "Output"],
+Cell[22357, 667, 450, 12, 48, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22844, 684, 111, 1, 47, "Section"],
+Cell[22958, 687, 92, 1, 21, "Text"],
+Cell[23053, 690, 451, 7, 20, "Text"],
+Cell[CellGroupData[{
+Cell[23529, 701, 1458, 33, 98, "Code"],
+Cell[24990, 736, 477, 13, 33, "Output"],
+Cell[25470, 751, 813, 25, 33, "Output"],
+Cell[26286, 778, 624, 12, 24, "Message"],
+Cell[26913, 792, 263, 6, 56, "Output"],
+Cell[27179, 800, 492, 15, 51, "Output"]
+}, Open  ]],
+Cell[27686, 818, 82, 1, 20, "Text"],
+Cell[27771, 821, 82, 1, 20, "Text"],
+Cell[27856, 824, 329, 6, 20, "Text"],
+Cell[CellGroupData[{
+Cell[28210, 834, 920, 24, 66, "Code"],
+Cell[29133, 860, 1261, 36, 66, "Output"],
+Cell[30397, 898, 584, 13, 56, "Output"]
+}, Open  ]],
+Cell[30996, 914, 236, 6, 20, "Text"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
