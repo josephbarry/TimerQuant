@@ -39,8 +39,9 @@ data("profileGradients")
 data("maturationData")
 data("FRETdata")
 data("FRETphotoconversionEfficiency")
-myTheme <- theme_bw()+theme(title=element_text(size=32), text=element_text(size=24), 
-    axis.title.y=element_text(vjust=1.5), panel.grid=element_blank())
+myTheme <- theme_bw()+theme(title=element_text(size=32), 
+    text=element_text(size=24), axis.title.y=element_text(vjust=1.5), 
+    panel.grid=element_blank())
 @
 
 \section{Figure 1}
@@ -58,7 +59,7 @@ T2 <- 100
 m1 <- log(2)/T1
 m2 <- log(2)/T2
 df <- data.frame(t=t, x1B=x1(p0, m1, kB, t), x2B=x1(p0, m2, kB, t),
-   x1A=x1(p0, m1, kA, t), x2A=x1(p0, m2, kA, t))
+    x1A=x1(p0, m1, kA, t), x2A=x1(p0, m2, kA, t))
 df <- melt(df, id="t")
 df$FP <- df[, "halflife"] <- NA
 df[df$variable %in% c("x1B", "x1A"), "FP"] <- "FP1"
@@ -80,8 +81,8 @@ ggplot(df, aes(x=t, y=value, color=FP, linetype=halflife))+geom_line(size=1)+
 df <- data.frame(t=t[-1], RatioB=x1(p0, m2, kB, t[-1])/x1(p0, m1, kB, t[-1]), 
     RatioA=x1(p0, m2, kA, t[-1])/x1(p0, m1, kA, t[-1]))
 df <- melt(df, id="t")
-ggplot(df, aes(x=t, y=value, color=variable, linetype=variable))+geom_line(size=1)+
-    scale_color_manual(values=c("blue", "blue"))+
+ggplot(df, aes(x=t, y=value, color=variable, linetype=variable))+
+    geom_line(size=1)+scale_color_manual(values=c("blue", "blue"))+
     scale_linetype_manual(values=c("solid", "dashed"))+myTheme+
     scale_x_continuous(breaks=seq(0, 1200, by=200))+
     theme(legend.position="none")+xlab("time (minutes)")+
@@ -92,14 +93,15 @@ ggplot(df, aes(x=t, y=value, color=variable, linetype=variable))+geom_line(size=
 <<fig1d, fig.cap="Figure 1D: Comparing steady-state ratios of two timers with different FP2 maturation times.">>=
 T3 <- 15
 halfLifeSeq <- seq(1, 1000, by=0.1)
-df <- data.frame(halfLife=halfLifeSeq, rssT2=ratioSteadyState(T1, T2, halfLifeSeq), 
+df <- data.frame(halfLife=halfLifeSeq, 
+    rssT2=ratioSteadyState(T1, T2, halfLifeSeq), 
     rssT3=ratioSteadyState(T1, T3, halfLifeSeq))
 df <- melt(df, id="halfLife")
 df$FP2 <- NA
 df[df$variable == "rssT2", "FP2"] <- paste(T2, "minute maturation time")
 df[df$variable == "rssT3", "FP2"] <- paste(T3, "minute maturation time")
 df$FP2 <- factor(df$FP2, levels=c("15 minute maturation time", 
-        "100 minute maturation time"))
+    "100 minute maturation time"))
 ggplot(df, aes(x=halfLife, y=value, color=FP2))+
     geom_line(size=1)+scale_color_manual(values=c("darkgrey", "blue"))+
     scale_x_log10(breaks=getBreaks10(halfLifeSeq))+
@@ -112,17 +114,21 @@ ggplot(df, aes(x=halfLife, y=value, color=FP2))+
     geom_segment(aes(x=0, xend=TB, y=ratioSteadyState(T1, T2, TB), 
         yend=ratioSteadyState(T1, T2, TB)), linetype="dotted", colour="blue")+
     geom_segment(aes(x=0, xend=TA, y=ratioSteadyState(T1, T3, TA), 
-        yend=ratioSteadyState(T1, T3, TA)), linetype="dashed", colour="darkgrey")+
+        yend=ratioSteadyState(T1, T3, TA)), linetype="dashed", 
+        colour="darkgrey")+
     geom_segment(aes(x=0, xend=TB, y=ratioSteadyState(T1, T3, TB), 
-        yend=ratioSteadyState(T1, T3, TB)), linetype="dashed", colour="darkgrey")+
+        yend=ratioSteadyState(T1, T3, TB)), linetype="dashed", 
+        colour="darkgrey")+
     geom_segment(aes(x=TA, xend=TA, y=-Inf, yend=ratioSteadyState(T1, T2, TA)),
         linetype="dotted", colour="blue")+
     geom_segment(aes(x=TB, xend=TB, y=-Inf, yend=ratioSteadyState(T1, T2, TB)),
         linetype="dotted", colour="blue")+
     geom_segment(aes(x=TA, xend=TA, y=ratioSteadyState(T1, T2, TA), 
-        yend=ratioSteadyState(T1, T3, TA)), linetype="dashed", colour="darkgrey")+
+        yend=ratioSteadyState(T1, T3, TA)), linetype="dashed", 
+        colour="darkgrey")+
     geom_segment(aes(x=TB, xend=TB, y=ratioSteadyState(T1, T2, TB), 
-        yend=ratioSteadyState(T1, T3, TB)), linetype="dashed", colour="darkgrey")+
+        yend=ratioSteadyState(T1, T3, TB)), linetype="dashed", 
+        colour="darkgrey")+
     annotation_logticks(sides="b")
 @
 
@@ -130,7 +136,8 @@ ggplot(df, aes(x=halfLife, y=value, color=FP2))+
 <<fig1e, fig.width=10, fig.cap="Figure 1E: Steady-state ratios as a funciton of FP2 maturation time and protein half-life.">>=
 tRangeFP1 <- c(1, 50)
 tRangeFP2 <- c(10, 500)
-colRamp <- colorRampPalette(colors=c('darkgreen','yellow', 'orange', 'red'))(100)
+colRamp <- 
+    colorRampPalette(colors=c('darkgreen','yellow', 'orange', 'red'))(100)
 h <- genRatioHeatmap(tRangeFP=tRangeFP2, Tfixed=T1, TA=min(halfLifeSeq), 
     TB=max(halfLifeSeq), channel=2, n=150, ramp=colRamp)
 h <- h+geom_hline(yintercept=TA, linetype="dashed", size=1)+
@@ -179,7 +186,8 @@ df$FPline <- df$FP
 df$FPline <- paste0(df$FP, "line")
 ggplot(df, aes(T, D.mean, colour=FP))+geom_point()+myTheme+
     xlab("FP maturation time (minutes)")+ylab(expression(S))+
-    scale_color_manual(values=c("FP1"="darkgreen", "FP2"="red", "FP1line"="black", "FP2line"="black"))+
+    scale_color_manual(values=c("FP1"="darkgreen", "FP2"="red", 
+        "FP1line"="black", "FP2line"="black"))+
     scale_x_log10(breaks=getBreaks10(range(df$T)))+
     geom_errorbar(aes(ymin=D.mean-D.sd, ymax=D.mean+D.sd))+
     geom_line(aes(T, D0, colour=FPline), data=df)+
@@ -272,7 +280,8 @@ dimnames(Anorm) <- dimnames(A)
 
 <<figSupp1, fig.width=18, out.width="\\textwidth", fig.cap="Figure S1: Comparing the maturation rates of three different RFPs.">>=
 AnormSummarizeViews <- apply(Anorm, c(1, 2, 3, 5), mean, na.rm=TRUE)
-AnormSummarizeSamples <- apply(AnormSummarizeViews, c(1, 2, 4), mean, na.rm=TRUE)
+AnormSummarizeSamples <- apply(AnormSummarizeViews, c(1, 2, 4), mean, 
+    na.rm=TRUE)
 Amelt <- melt(AnormSummarizeSamples, id="t")
 Amelt$tFTs <- as.factor(paste0(Amelt$tFTs, "-sfGFP"))
 o <- match(levels(Amelt$tFT), paste0(names(myCol), "-sfGFP"))
@@ -292,7 +301,8 @@ F$tFT <- paste0(F$tFT, "-sfGFP")
 F$tFT <- as.factor(F$tFT)
 o <- match(levels(F$tFT), paste0(names(myCol), "-sfGFP"))
 F$tFT <- factor(F$tFT, levels=levels(F$tFT)[o])
-ggplot(F, aes(tFT, FRET, fill="white"))+geom_boxplot(outlier.size=0, fill="white")+
+ggplot(F, aes(tFT, FRET, fill="white"))+
+    geom_boxplot(outlier.size=0, fill="white")+
     geom_point(aes(x=tFT, y=FRET, colour=tFT, size=4), position="jitter")+
     scale_color_manual(values=as.vector(myColReduced))+xlab("")+myTheme+
     ylab("coefficient of FRET")+theme(legend.position="none")+
@@ -312,9 +322,12 @@ T1 <- 6
 df <- data.frame(
     halfLife=Tseq,
     tdTomNoFret=signal(T1=T1, T2=FPestimate["tdTom"], TA=Tfront, TB=Tseq, E=0),
-    tdTomFret=signal(T1=T1, T2=FPestimate["tdTom"], TA=Tfront, TB=Tseq, E=Fs["tdTom-sfGFP"]),
-    TagRFPNoFret=signal(T1=T1, T2=FPestimate["TagRFP"], TA=Tfront, TB=Tseq, E=0),
-    TagRFPFret=signal(T1=T1, T2=FPestimate["TagRFP"], TA=Tfront, TB=Tseq, E=Fs["TagRFP-sfGFP"]))
+    tdTomFret=signal(T1=T1, T2=FPestimate["tdTom"], TA=Tfront, TB=Tseq, 
+        E=Fs["tdTom-sfGFP"]),
+    TagRFPNoFret=signal(T1=T1, T2=FPestimate["TagRFP"], TA=Tfront, TB=Tseq, 
+        E=0),
+    TagRFPFret=signal(T1=T1, T2=FPestimate["TagRFP"], TA=Tfront, TB=Tseq, 
+        E=Fs["TagRFP-sfGFP"]))
 df <- melt(df, id="halfLife")
 df$FRET <- !grepl(x=as.character(df$variable), pattern="NoFret")
 df$FRET <- factor(df$FRET, levels=c("TRUE", "FALSE"))
@@ -324,13 +337,15 @@ df$tFT[grepl(x=as.character(df$variable), pattern="TagRFP")] <- "TagRFP-sfGFP"
 df$tFT <- factor(df$tFT, levels=paste0(names(myCol), "-sfGFP"))
 ggplot(df, aes(x=halfLife, y=value, color=tFT, linetype=FRET))+
     geom_line(size=1)+
-    scale_color_manual(values=as.vector(myColReduced), guide=guide_legend(title="timer"))+
+    scale_color_manual(values=as.vector(myColReduced), 
+        guide=guide_legend(title="timer"))+
     scale_linetype_manual(values=c("solid", "dashed"))+
     xlab("simulated protein half-life (minutes)")+
     ylab(expression("simulated timer signal"))+
     geom_vline(xintercept=Tfront, linetype="dotted")+
     scale_x_reverse()+myTheme+
-    theme(legend.position=c(0.77, 0.85), legend.key.width=unit(2, "cm"), legend.box.just="left")
+    theme(legend.position=c(0.77, 0.85), legend.key.width=unit(2, "cm"), 
+        legend.box.just="left")
 @
 
 \subsection{Figure S3A}
@@ -370,9 +385,10 @@ x02 <- c(X1=x0ss(p0, m2, k0), X2=x1ss(p0, m2, k0))
 @
 
 <<model functions, echo=FALSE>>=
-rFun <- function(type, r0, tf, slopePrefactor=0.0015, stepPositionPrefactor=0.1) {
+rFun <- function(type, r0, tf, slopePrefactor=0.0015, 
+    stepPositionPrefactor=0.1) {
     g <- switch(as.character(type), constant=function(t) r0, 
-    	burst=stepfun(c(tf/10, tf/10+tf/20), c(r0, r0+2*r0, r0)),
+        burst=stepfun(c(tf/10, tf/10+tf/20), c(r0, r0+2*r0, r0)),
         linearIncrease=function(t) r0+slopePrefactor*r0*t,
         linearDecrease=function(t) r0-slopePrefactor*r0*t,
         stepUp=stepfun(tf*stepPositionPrefactor, c(r0, r0+r0*0.5)),
@@ -384,9 +400,9 @@ solveModel <- function(x01, x02, tseq, m1, m2, typeProd="constant",
     typeDeg="constant", p0, k0, stepPositionPrefactorProd=0.1, 
     stepPositionPrefactorDeg=0.1) {
     p <- rFun(typeProd, r0=p0, tf=max(tseq), 
-              stepPositionPrefactor=stepPositionPrefactorProd)
+        stepPositionPrefactor=stepPositionPrefactorProd)
     k <- rFun(typeDeg, r0=k0, tf=max(tseq),
-              stepPositionPrefactor=stepPositionPrefactorDeg)
+        stepPositionPrefactor=stepPositionPrefactorDeg)
     eqs <- function(t, state, parameters) {
         with(as.list(c(state, parameters)), list(c(dX1=p(t)-m*X1-k(t)*X1, 
             dX2=m*X1-k(t)*X2)))
@@ -409,15 +425,17 @@ dfp <- data.frame(t=t,
     linearDecrease=rFun("linearDecrease", r0=p0, tf=tf)(t))
 types <- colnames(dfp)[-1]
 dfp <- melt(dfp, id="t")
-gp <- ggplot(dfp, aes(t, value))+geom_line(size=1)+facet_wrap(~variable, ncol=1)+
+gp <- ggplot(dfp, aes(t, value))+geom_line(size=1)+
+    facet_wrap(~variable, ncol=1)+
     xlab("time (minutes)")+ylab("production rate (molecules per minute)")+
     scale_x_continuous(breaks=myBreaks)+myTheme
 dfk <- data.frame(t=t,
     linearIncrease=rFun("linearIncrease", r0=k0, tf=tf)(t),
     linearDecrease=rFun("linearDecrease", r0=k0, tf=tf)(t))
 dfk <- melt(dfk, id="t")
-gk <- ggplot(dfk, aes(t, value))+geom_line(size=1)+facet_wrap(~variable, ncol=1)+
-    xlab("time (minutes)")+ylab(expression(paste("degradation rate (minutes"^{-1}, ")")))+
+gk <- ggplot(dfk, aes(t, value))+geom_line(size=1)+
+    facet_wrap(~variable, ncol=1)+xlab("time (minutes)")+
+    ylab(expression(paste("degradation rate (minutes"^{-1}, ")")))+
     scale_x_continuous(breaks=myBreaks)+myTheme
 df <- lapply(types, function(n) solveModel(x01, x02, t, m1=m1, m2=m2, 
     typeProd=n, typeDeg=n, p0=p0, k0=k0))
@@ -461,8 +479,9 @@ dfp <- data.frame(t=t,
     stepUp=rFun("stepUp", r0=p0, tf=tf)(t))
 types <- colnames(dfp)[-1]
 dfp <- melt(dfp, id="t")
-gp <- ggplot(dfp, aes(t, value))+geom_line(size=1)+facet_wrap(~variable, ncol=1)+
-    xlab("time (minutes)")+ylab("production rate (molecules per minute)")+
+gp <- ggplot(dfp, aes(t, value))+geom_line(size=1)+
+    facet_wrap(~variable, ncol=1)+xlab("time (minutes)")+
+    ylab("production rate (molecules per minute)")+
     scale_x_continuous(breaks=myBreaks)+myTheme
 df <- lapply(types, function(n) solveModel(x01, x02, t, m1=m1, m2=m2, 
     typeProd=n, typeDeg="constant", p0=p0, k0=k0))

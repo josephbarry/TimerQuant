@@ -35,11 +35,11 @@ genRatioHeatmap <- function(tRangeFP, Tfixed, TA, TB, channel=2, E=0, f=1, n=110
         coord_cartesian(xlim=tRangeFP, ylim=c(TA, TB))+
         scale_x_log10(breaks=getBreaks10(tRangeFP))+
         scale_y_log10(breaks=getBreaks10(c(TA, TB)))+
-    	scale_linetype_discrete(name="a") + 
-    	scale_colour_gradientn(colours=ramp) + 
-    	labs(colour=expression("R")) +
+        scale_linetype_discrete(name="a") + 
+        scale_colour_gradientn(colours=ramp) + 
+        labs(colour=expression("R")) +
         theme_bw()+
-    	theme(axis.title.x=element_text(size=32), axis.title.y=element_text(size=32, vjust=1.5), 
+        theme(axis.title.x=element_text(size=32), axis.title.y=element_text(size=32, vjust=1.5), 
             axis.text.x=element_text(size=24), axis.text.y=element_text(size=24), 
             legend.key.size=unit(64, "points"), legend.title=element_text(size=24),
             legend.text=element_text(size=24), panel.border=element_blank())
@@ -131,12 +131,11 @@ signal <- function(T1, T2, TA, TB, E=0) {
 fitCV <- function(x, scaleLog10=TRUE) {
     expectedNames <- c('T', 'CV')
     if (! all(expectedNames %in% colnames(x))) stop("expecting columns 'T' and 'CV'")
+    tSeq <- getSpacedSeq(range(x$T, na.rm=TRUE), n=100)
     if (scaleLog10) x$T <- log10(x$T)
     poly <- lp(x$T, deg=2)
     fit <- locfit(CV ~ T, data=x)
-    tSeq <- getSpacedSeq(range(x$T, na.rm=TRUE), n=100)
-    pred <- data.frame(T=tSeq, CV=predict(fit, newdata=data.frame(T=tSeq)))
-    if (scaleLog10) pred$T <- 10^(pred$T)
+    pred <- data.frame(T=tSeq, CV=predict(fit, newdata=data.frame(T=log10(tSeq))))
     fn <- approxfun(pred$T, pred$CV)
     o <- optimize(fn, interval=range(pred$T), maximum=FALSE)
     pred$FP2optimumTime <- o$minimum

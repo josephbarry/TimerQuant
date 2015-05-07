@@ -79,9 +79,10 @@ available as acceptors. In the time-dependent model this was described as
 \noindent
 where the proportionality constant $f_i$ incorporates multiplicative effects 
 such as fluorophore brightness and quantum yield, and 
-$b(t)=X_2(t)/(X_2^0(t)+X_2(t))$. We did not consider FRET from channel $2$ to channel $1$ 
-since it is physiologically improbable to encounter such cases as slower-maturing 
-fluorophores tend to have longer wavelengths than faster-maturing fluorophores.
+$b(t)=X_2(t)/(X_2^0(t)+X_2(t))$. We did not consider FRET from channel $2$ to 
+channel $1$ since it is physiologically improbable to encounter such cases as 
+slower-maturing fluorophores tend to have longer wavelengths than 
+faster-maturing fluorophores.
 
 The time-dependent timer ratio $R$ incorporating FRET was defined as
 \begin{equation}
@@ -101,15 +102,15 @@ In full the the timer ratio is therefore
 
 \section{Time to reach steady state}
 
-The time to reach steady state for the ratio was determined from the kinetics of the 
-slower maturing fluorophore, FP2. Since FP2 is not affected by FRET from FP1 we 
-may calculate this either from the fluorescence intensity in eq.
+The time to reach steady state for the ratio was determined from the kinetics of
+the slower maturing fluorophore, FP2. Since FP2 is not affected by FRET from FP1
+we may calculate this either from the fluorescence intensity in eq.
 \ref{eq:fluorescenceIntensities} or the molecular population in eq. 
 \ref{eq:ODEsolutionTime}. Here we focus on the latter. We choose to define 
-the time to reach steady-state as the point of intersection chose the line tangent 
-to the point of inflection and the steady state value (see Fig. S4A) given by 
-eq. \ref{eq:ODEsteadyState}. The time coordinate $t^*$ at the point of inflection 
-was calculated to be
+the time to reach steady-state as the point of intersection chose the line 
+tangent to the point of inflection and the steady state value (see Fig. S4A) 
+given by eq. \ref{eq:ODEsteadyState}. The time coordinate $t^*$ at the point of
+inflection was calculated to be
 \noindent
 \begin{equation}
     t^*=(1/m_2)\log(1+m_2/k)\ .
@@ -131,18 +132,18 @@ state, $T_{ss}$.
 
 The timer signal was defined between two protein 
 half-lives, $T_{1/2}^A$ and $T_{1/2}^B$ where $T_{1/2}^B>T_{1/2}^A$ . 
-We considered the log fold-change between the corresponding timer ratios $R^B=I_2^B/I_1^B$ and 
-$R^A=I_2^A/I_1^A$.
+We considered the log fold-change between the corresponding timer ratios 
+$R^B=I_2^B/I_1^B$ and $R^A=I_2^A/I_1^A$.
 
-To investigate the effect of background noise on our ability to detect differences 
-in timer signal we defined the following additive error model.
+To investigate the effect of background noise on our ability to detect 
+differences in timer signal we defined the following additive error model.
 
 \begin{equation}
     S=\log_2\bigg(\frac{I_2^B+\epsilon_2^B}{I_1^B+\epsilon_1^B}\bigg/\frac{I_2^A+\epsilon_2^A}{I_1^A+\epsilon_1^A}\bigg)
 \end{equation}
 \noindent
-where $\epsilon_1^A,\epsilon_2^A,\epsilon_1^B,\epsilon_2^B\sim N(0,\sigma^2)$ are 
-independent. Computer simulations were used to obtain an estimate of the 
+where $\epsilon_1^A,\epsilon_2^A,\epsilon_1^B,\epsilon_2^B\sim N(0,\sigma^2)$
+are independent. Computer simulations were used to obtain an estimate of the 
 population mean $\mu_S$ and standard deviation $\sigma_S$. From this we formed 
 the coefficient of variation term
 
