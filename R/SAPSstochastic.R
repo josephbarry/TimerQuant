@@ -8,10 +8,12 @@ simulatedRatio <- function(T1, T2, hLife, sigmaAdd, p=1, E=0) {
 }
 
 simulatedSignal <- function(T1, T2, TA, TB, sigmaAdd, p=1, E=0)
-    log2(simulatedRatio(T1, T2, TB, sigmaAdd, p, E)/simulatedRatio(T1, T2, TA, sigmaAdd, p, E))
+    log2(simulatedRatio(T1, T2, TB, sigmaAdd, p, E)/
+        simulatedRatio(T1, T2, TA, sigmaAdd, p, E))
 
 simulatedSignalN <- function(T1, T2, TA, TB, sigmaAdd, N, p=1, E=0) {
-    d <- sapply(seq_len(N), function(i) suppressWarnings(simulatedSignal(T1, T2, TA, TB, sigmaAdd, p, E)))
+    d <- sapply(seq_len(N), function(i) suppressWarnings(simulatedSignal(T1, T2,
+        TA, TB, sigmaAdd, p, E)))
     return(d)
 }
 
