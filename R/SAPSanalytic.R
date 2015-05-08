@@ -150,8 +150,12 @@ fitCV <- function(x, scaleLog10=TRUE) {
     if (scaleLog10) x$T <- log10(x$T)
     poly <- lp(x$T, deg=2)
     fit <- locfit(CV ~ T, data=x)
+    f <- function(x, scaleLog10) {
+        if (scaleLog10) return(log10(x)) 
+        else return(x)
+    }
     pred <- data.frame(T=tSeq, CV=predict(fit, 
-        newdata=data.frame(T=log10(tSeq))))
+        newdata=data.frame(T=f(tSeq, scaleLog10))))
     fn <- approxfun(pred$T, pred$CV)
     o <- optimize(fn, interval=range(pred$T), maximum=FALSE)
     pred$FP2optimumTime <- o$minimum
