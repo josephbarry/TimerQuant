@@ -143,21 +143,21 @@ signal <- function(T1, T2, TA, TB, E=0) {
 }
 
 fitCV <- function(x, scaleLog10=TRUE) {
-    expectedNames <- c('T', 'CV')
+    expectedNames <- c('Time', 'CV')
     if (! all(expectedNames %in% colnames(x))) 
-        stop("expecting columns 'T' and 'CV'")
-    tSeq <- getSpacedSeq(range(x$T, na.rm=TRUE), n=100)
-    if (scaleLog10) x$T <- log10(x$T)
-    poly <- lp(x$T, deg=2)
-    fit <- locfit(CV ~ T, data=x)
+        stop("expecting columns 'Time' and 'CV'")
+    tSeq <- getSpacedSeq(range(x$Time, na.rm=TRUE), n=100)
+    if (scaleLog10) x$Time <- log10(x$Time)
+    poly <- lp(x$Time, deg=2)
+    fit <- locfit(CV ~ Time, data=x)
     f <- function(x, scaleLog10) {
         if (scaleLog10) return(log10(x)) 
         else return(x)
     }
-    pred <- data.frame(T=tSeq, CV=predict(fit, 
-        newdata=data.frame(T=f(tSeq, scaleLog10))))
-    fn <- approxfun(pred$T, pred$CV)
-    o <- optimize(fn, interval=range(pred$T), maximum=FALSE)
+    pred <- data.frame(Time=tSeq, CV=predict(fit, 
+        newdata=data.frame(Time=f(tSeq, scaleLog10))))
+    fn <- approxfun(pred$Time, pred$CV)
+    o <- optimize(fn, interval=range(pred$Time), maximum=FALSE)
     pred$FP2optimumTime <- o$minimum
     pred$FP2optimum <- o$objective
     return(pred)

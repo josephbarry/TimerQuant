@@ -11,7 +11,7 @@ fitCV(x, scaleLog10)
 }
 \arguments{
 \item{x}{
-A dataframe with columns \code{T} (FP maturation time) and \code{CV}
+A dataframe with columns \code{Time} (FP maturation time) and \code{CV}
 (coefficient of variation of timer signal).
 }
 \item{scaleLog10}{

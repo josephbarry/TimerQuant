@@ -152,45 +152,45 @@ pSeq <- c(0.5, 2, 8)
 nRealizations <- 500
 sigmaAdd <- 1
 T2 <- getSpacedSeq(c(10, 500), n=100)
-res <- lapply(pSeq, function(p) lapply(T2, function(T) 
-    simulatedSignalN(T1, T2=T, TA, TB, sigmaAdd, nRealizations, p=p, E=0)))
+res <- lapply(pSeq, function(p) lapply(T2, function(Time) 
+    simulatedSignalN(T1, T2=Time, TA, TB, sigmaAdd, nRealizations, p=p, E=0)))
 dfFP2 <- lapply(seq_along(res), function(i) {
     df2 <- lapply(seq_along(res[[i]]), function(j)
-        return(data.frame(p=pSeq[i], T=T2[j], D=res[[i]][[j]])))
+        return(data.frame(p=pSeq[i], Time=T2[j], D=res[[i]][[j]])))
     df2 <- do.call("rbind", df2)
     return(df2)
 })
 dfFP2 <- do.call("rbind", dfFP2)
 dfFP2$FP <- "FP2"
-dfFP2s <- dfFP2 %>% group_by(p, T, FP) %>% 
+dfFP2s <- dfFP2 %>% group_by(p, Time, FP) %>% 
     summarise(D.mean=mean(D, na.rm=TRUE), D.sd=sd(D, na.rm=TRUE))
-dfFP2s$D0 <- simulatedSignal(T1, dfFP2s$T, TA, TB, sigmaAdd=0, p=dfFP2s$p)
+dfFP2s$D0 <- simulatedSignal(T1, dfFP2s$Time, TA, TB, sigmaAdd=0, p=dfFP2s$p)
 T1 <- getSpacedSeq(c(1, 30), n=100)
 T2 <- 100
-res <- lapply(pSeq, function(p) lapply(T1, function(T) 
-    simulatedSignalN(T1=T, T2, TA, TB, sigmaAdd, nRealizations, p=p, E=0)))
+res <- lapply(pSeq, function(p) lapply(T1, function(Time) 
+    simulatedSignalN(T1=Time, T2, TA, TB, sigmaAdd, nRealizations, p=p, E=0)))
 dfFP1 <- lapply(seq_along(res), function(i) {
     df2 <- lapply(seq_along(res[[i]]), function(j)
-        return(data.frame(p=pSeq[i], T=T1[j], D=res[[i]][[j]])))
+        return(data.frame(p=pSeq[i], Time=T1[j], D=res[[i]][[j]])))
     df2 <- do.call("rbind", df2)
     return(df2)
 })
 dfFP1 <- do.call("rbind", dfFP1)
 dfFP1$FP <- "FP1"
-dfFP1s <- dfFP1 %>% group_by(p, T, FP) %>% 
+dfFP1s <- dfFP1 %>% group_by(p, Time, FP) %>% 
     summarise(D.mean=mean(D, na.rm=TRUE), D.sd=sd(D, na.rm=TRUE))
-dfFP1s$D0 <- simulatedSignal(T1=dfFP1s$T, T2, TA, TB, sigmaAdd=0, p=dfFP1s$p)
+dfFP1s$D0 <- simulatedSignal(T1=dfFP1s$Time, T2, TA, TB, sigmaAdd=0, p=dfFP1s$p)
 df <- bind_rows(dfFP1s, dfFP2s)
 df$p <- paste("p =", df$p, "molecules/minute")
 df$FPline <- df$FP
 df$FPline <- paste0(df$FP, "line")
-ggplot(df, aes(T, D.mean, colour=FP))+geom_point()+myTheme+
+ggplot(df, aes(Time, D.mean, colour=FP))+geom_point()+myTheme+
     xlab("FP maturation time (minutes)")+ylab(expression(S))+
     scale_color_manual(values=c("FP1"="darkgreen", "FP2"="red", 
         "FP1line"="black", "FP2line"="black"))+
-    scale_x_log10(breaks=getBreaks10(range(df$T)))+
+    scale_x_log10(breaks=getBreaks10(range(df$Time)))+
     geom_errorbar(aes(ymin=D.mean-D.sd, ymax=D.mean+D.sd))+
-    geom_line(aes(T, D0, colour=FPline), data=df)+
+    geom_line(aes(Time, D0, colour=FPline), data=df)+
     facet_wrap(~p)+theme(legend.position="none")+
     annotation_logticks(sides="b")
 T1 <- 5; T2 <- 100
@@ -202,11 +202,11 @@ dfs <- filter(df, FP == "FP2")
 dfs$CV <- dfs$D.sd/dfs$D.mean
 
 dfFit <- dfs %>% group_by(p, FP) %>% do(fitCV(.))
-ggplot(dfs, aes(T, D.sd/D.mean, color=p))+geom_point()+myTheme+
-    scale_x_log10(breaks=getBreaks10(range(dfs$T)))+
+ggplot(dfs, aes(Time, D.sd/D.mean, color=p))+geom_point()+myTheme+
+    scale_x_log10(breaks=getBreaks10(range(dfs$Time)))+
     scale_y_log10(breaks=getBreaks10(range(dfs$CV)))+
     xlab("FP2 maturation time (minutes)")+ylab(expression(sigma[S]~"/"~mu[S]))+
-    geom_line(aes(T, CV), data=dfFit)+
+    geom_line(aes(Time, CV), data=dfFit)+
     geom_vline(aes(xintercept=FP2optimumTime, color=p), data=dfFit, 
         linetype="dashed")+
     theme(legend.position="none")+
@@ -295,20 +295,20 @@ ggplot(na.omit(Amelt), aes(x=t, y=value, color=tFTs))+geom_line(size=2)+
 
 \subsection{Figure 2C}
 <<fig2c, fig.cap="Figure 2C: FRET coefficient measurements for tdTom-sfGFP and TagRFP-sfGFP.">>=
-F <- FRETdata
-myColReduced <- myCol[names(myCol) %in% F$tFT]
-F$tFT <- paste0(F$tFT, "-sfGFP")
-F$tFT <- as.factor(F$tFT)
-o <- match(levels(F$tFT), paste0(names(myCol), "-sfGFP"))
-F$tFT <- factor(F$tFT, levels=levels(F$tFT)[o])
-ggplot(F, aes(tFT, FRET, fill="white"))+
+FRET <- FRETdata
+myColReduced <- myCol[names(myCol) %in% FRET$tFT]
+FRET$tFT <- paste0(FRET$tFT, "-sfGFP")
+FRET$tFT <- as.factor(FRET$tFT)
+o <- match(levels(FRET$tFT), paste0(names(myCol), "-sfGFP"))
+FRET$tFT <- factor(FRET$tFT, levels=levels(FRET$tFT)[o])
+ggplot(FRET, aes(tFT, FRET, fill="white"))+
     geom_boxplot(outlier.size=0, fill="white")+
     geom_point(aes(x=tFT, y=FRET, colour=tFT, size=4), position="jitter")+
     scale_color_manual(values=as.vector(myColReduced))+xlab("")+myTheme+
     ylab("coefficient of FRET")+theme(legend.position="none")+
     theme(axis.text.x=element_text(size=24))
-Fs <- tapply(F$FRET, F$tFT, median)
-print(Fs)
+FRETs <- tapply(FRET$FRET, FRET$tFT, median)
+print(FRETs)
 @
 
 \subsection{Figure 2D}
@@ -323,11 +323,11 @@ df <- data.frame(
     halfLife=Tseq,
     tdTomNoFret=signal(T1=T1, T2=FPestimate["tdTom"], TA=Tfront, TB=Tseq, E=0),
     tdTomFret=signal(T1=T1, T2=FPestimate["tdTom"], TA=Tfront, TB=Tseq, 
-        E=Fs["tdTom-sfGFP"]),
+        E=FRETs["tdTom-sfGFP"]),
     TagRFPNoFret=signal(T1=T1, T2=FPestimate["TagRFP"], TA=Tfront, TB=Tseq, 
         E=0),
     TagRFPFret=signal(T1=T1, T2=FPestimate["TagRFP"], TA=Tfront, TB=Tseq, 
-        E=Fs["TagRFP-sfGFP"]))
+        E=FRETs["TagRFP-sfGFP"]))
 df <- melt(df, id="halfLife")
 df$FRET <- !grepl(x=as.character(df$variable), pattern="NoFret")
 df$FRET <- factor(df$FRET, levels=c("TRUE", "FALSE"))
